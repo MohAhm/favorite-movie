@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MovieCardsList from './MovieCardsList';
 
 const profiles = [
 	{
@@ -90,21 +91,32 @@ const movies = {
 };
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.usersByMovie = {}
+
+		profiles.forEach(profile => {
+			const movieID = profile.favoriteMovieID;
+	  
+			if (this.usersByMovie[movieID]) {
+				this.usersByMovie[movieID].push(profile.userID);
+			} else {
+			  	this.usersByMovie[movieID] = [profile.userID];
+			}
+		});
+	}
+
 	render() {
 		return (
 			<div className="App">
-				<h2>Favorite Movies</h2>
+				<h2>How Popular is Your Favorite Movie?</h2>
 
-				{profiles.map(profile => {
-					const userName = users[profile.userID].name;
-					const favoriteMovieID = movies[profile.favoriteMovieID].name;
-
-					return (
-						<li key={profile.id}>
-							<p>{`${userName}'s favorite movie is "${favoriteMovieID}."`}</p>
-						</li>
-					);
-				})}
+				<MovieCardsList 
+					profiles={profiles}
+					movies={movies}
+					users={users}
+					usersByMovie={this.usersByMovie}
+				/>
 			</div>
 		  );
 	}
