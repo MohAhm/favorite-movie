@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MovieCardsList from './MovieCardsList';
 
 const profiles = [
@@ -90,36 +90,23 @@ const movies = {
 	},
 };
 
-class App extends Component {
-	constructor(props) {
-		super(props);
-		this.usersByMovie = {}
+const App = () => {
 
-		profiles.forEach(profile => {
-			const movieID = profile.favoriteMovieID;
-	  
-			if (this.usersByMovie[movieID]) {
-				this.usersByMovie[movieID].push(profile.userID);
-			} else {
-			  	this.usersByMovie[movieID] = [profile.userID];
-			}
-		});
-	}
+	return (
+		<div className="App">
+			{/* Display a list of movies, for each movie in the list, there are two options:
+			1. If the movie has been favorited, then display a list of all of the users who said that this movie was their favorite.
+			2. If the movie has *not* been favorited, display some text stating that no one favorited the movie. */}
 
-	render() {
-		return (
-			<div className="App">
-				<h2>How Popular is Your Favorite Movie?</h2>
-
-				<MovieCardsList 
-					profiles={profiles}
-					movies={movies}
-					users={users}
-					usersByMovie={this.usersByMovie}
-				/>
-			</div>
-		  );
-	}
+			<h2>How Popular is Your Favorite Movie?</h2>
+			<MovieCardsList 
+				profiles={profiles}
+				movies={movies}
+				users={users}
+			/>
+		</div>
+	);
+	
 }
 
 export default App;

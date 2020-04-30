@@ -1,30 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class MovieCard extends Component {
-    render () {
-        const { users, usersWhoLikedMovie, movieInfo } = this.props;
+/*
+Since this component doesn't need to hold state, we can make it a Stateless
+Functional Component.
+*/
+const MovieCard = props => {
 
-        return (
-            <li key={movieInfo.id}>
-                <h2>{movieInfo.name}</h2>
-                <h3>Liked By:</h3>
+    const { users, usersWhoLikedMovie, movieInfo } = props;
 
-                {!usersWhoLikedMovie || usersWhoLikedMovie.length === 0 ? (
-                    <p>None of the current users liked this movie.</p>
-                ) : (
-                    <ul>
-                        {usersWhoLikedMovie && usersWhoLikedMovie.map(userId => {
-                            return (
-                                <li key={userId}>
-                                    <p>{users[userId].name}</p>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                )}
-            </li>
-        );
-    }
+    return (
+        <li key={movieInfo.id}>
+            <h2>{movieInfo.name}</h2>
+            <h3>Liked By:</h3>
+            {!usersWhoLikedMovie || usersWhoLikedMovie.length === 0 ? (
+                <p>None of the current users liked this movie.</p>
+            ) : (
+                <ul>
+                    {usersWhoLikedMovie && usersWhoLikedMovie.map(userId => {
+                        return (
+                            <li key={userId}>
+                                <p>{users[userId].name}</p>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
+        </li>
+    );
+
 }
 
 export default MovieCard;
